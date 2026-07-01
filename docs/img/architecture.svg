@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="540" viewBox="0 0 1400 540" font-family="Arial,sans-serif">
+  <!-- Background -->
+  <rect width="1400" height="540" fill="#ffffff"/>
+
+  <!-- Arrowhead markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#666666"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6c8ebf"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#82b366"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9673a6"/>
+    </marker>
+    <marker id="arr-gold" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#d6b656"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="700" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">SpecSearch &#8212; Hybrid RAG Pipeline</text>
+  <!-- PDF Input -->
+  <rect x="30" y="195" width="90" height="95" rx="4" fill="#f5f5f5" stroke="#666666" stroke-width="1.5"/>
+  <text x="75" y="232" text-anchor="middle" font-size="11" fill="#333333" font-weight="bold">PDF Specs</text>
+  <text x="75" y="248" text-anchor="middle" font-size="10" fill="#555555">data/raw/</text>
+  <line x1="50" y1="262" x2="100" y2="262" stroke="#999" stroke-width="1"/>
+  <line x1="50" y1="271" x2="90" y2="271" stroke="#999" stroke-width="1"/>
+  <line x1="50" y1="280" x2="95" y2="280" stroke="#999" stroke-width="1"/>
+
+  <!-- Arrow: PDF to Ingest -->
+  <line x1="120" y1="243" x2="158" y2="243" stroke="#666666" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Ingest and Chunk -->
+  <rect x="160" y="208" width="148" height="72" rx="6" fill="#f5f5f5" stroke="#666666" stroke-width="1.5"/>
+  <text x="234" y="227" text-anchor="middle" font-size="10" font-weight="bold" fill="#333333">Ingest &amp; Chunk</text>
+  <text x="234" y="241" text-anchor="middle" font-size="9" fill="#555">ingest.py</text>
+  <text x="234" y="254" text-anchor="middle" font-size="9" fill="#555">512 tok / 64 overlap</text>
+  <text x="234" y="267" text-anchor="middle" font-size="9" fill="#555">CSI section-aware</text>
+
+  <!-- Arrow: Ingest to Dual Index -->
+  <line x1="308" y1="244" x2="348" y2="244" stroke="#666666" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Dual Index container -->
+  <rect x="350" y="168" width="300" height="158" rx="6" fill="#f8f8f8" stroke="#999999" stroke-width="1.5"/>
+  <text x="500" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#333333">Dual Index (index.py)</text>
+
+  <!-- ES sub-box -->
+  <rect x="368" y="200" width="124" height="110" rx="5" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="430" y="218" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Elasticsearch BM25</text>
+  <text x="430" y="232" text-anchor="middle" font-size="9" fill="#444">index: specsearch</text>
+  <text x="430" y="245" text-anchor="middle" font-size="9" fill="#444">english analyzer</text>
+  <text x="430" y="258" text-anchor="middle" font-size="9" fill="#444">top-500 BM25</text>
+  <text x="430" y="272" text-anchor="middle" font-size="9" fill="#6c8ebf" font-weight="bold">Docker :9200</text>
+
+  <!-- Chroma sub-box -->
+  <rect x="508" y="200" width="124" height="110" rx="5" fill="#d5e8d4" stroke="#82b366" stroke-width="1.5"/>
+  <text x="570" y="218" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">ChromaDB vectors</text>
+  <text x="570" y="232" text-anchor="middle" font-size="9" fill="#444">BAAI/bge-small-en</text>
+  <text x="570" y="245" text-anchor="middle" font-size="9" fill="#444">cosine / HNSW</text>
+  <text x="570" y="258" text-anchor="middle" font-size="9" fill="#444">top-500 vector</text>
+  <text x="570" y="272" text-anchor="middle" font-size="9" fill="#82b366" font-weight="bold">local data/chroma/</text>
+
+  <!-- Arrows: ES and Chroma to Parallel Retrieve -->
+  <!-- ES edge routes down through y=369 then right (matching drawio waypoints) -->
+  <path d="M 430 310 L 430 369 L 775 369 L 775 280" stroke="#6c8ebf" stroke-width="1.5" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-blue)"/>
+  <line x1="632" y1="265" x2="708" y2="265" stroke="#82b366" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="600" y="383" text-anchor="middle" font-size="8" fill="#888888">parallel</text>
+
+  <!-- Parallel Retrieve -->
+  <rect x="710" y="208" width="135" height="72" rx="6" fill="#f5f5f5" stroke="#666666" stroke-width="1.5"/>
+  <text x="777" y="227" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Parallel Retrieve</text>
+  <text x="777" y="241" text-anchor="middle" font-size="9" fill="#555">retrieve.py</text>
+  <text x="777" y="254" text-anchor="middle" font-size="9" fill="#555">ThreadPoolExecutor</text>
+  <text x="777" y="267" text-anchor="middle" font-size="9" fill="#555">top-500 each lane</text>
+
+  <!-- Arrow: Retrieve to RRF -->
+  <line x1="845" y1="244" x2="893" y2="244" stroke="#666666" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- RRF Fusion -->
+  <rect x="895" y="208" width="125" height="72" rx="6" fill="#f5f5f5" stroke="#666666" stroke-width="1.5"/>
+  <text x="957" y="227" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">RRF Fusion</text>
+  <text x="957" y="241" text-anchor="middle" font-size="9" fill="#555">retrieve.py</text>
+  <text x="957" y="254" text-anchor="middle" font-size="9" fill="#555">k=60</text>
+  <text x="957" y="267" text-anchor="middle" font-size="9" fill="#555">~1000 candidates</text>
+
+  <!-- Arrow: RRF to Rerank -->
+  <line x1="1020" y1="244" x2="1068" y2="244" stroke="#666666" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Rerank -->
+  <rect x="1070" y="208" width="150" height="72" rx="6" fill="#f5f5f5" stroke="#666666" stroke-width="1.5"/>
+  <text x="1145" y="227" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Cross-Encoder Rerank</text>
+  <text x="1145" y="241" text-anchor="middle" font-size="9" fill="#555">rerank.py</text>
+  <text x="1145" y="254" text-anchor="middle" font-size="9" fill="#555">ms-marco-MiniLM-L-6</text>
+  <text x="1145" y="267" text-anchor="middle" font-size="9" fill="#555">top-6 (TOP_K)</text>
+
+  <!-- Arrow: Rerank to Generate -->
+  <line x1="1145" y1="280" x2="1145" y2="348" stroke="#9673a6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+
+  <!-- Generate -->
+  <rect x="1070" y="350" width="150" height="72" rx="6" fill="#e1d5e7" stroke="#9673a6" stroke-width="1.5"/>
+  <text x="1145" y="369" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Generate + Cite Check</text>
+  <text x="1145" y="383" text-anchor="middle" font-size="9" fill="#555">generate.py</text>
+  <text x="1145" y="396" text-anchor="middle" font-size="9" fill="#9673a6" font-weight="bold">Ollama gemma4:31b</text>
+  <text x="1145" y="409" text-anchor="middle" font-size="9" fill="#555">temperature=0, grounded</text>
+
+  <!-- Arrow: Generate to Answer -->
+  <line x1="1220" y1="386" x2="1263" y2="386" stroke="#d6b656" stroke-width="1.5" marker-end="url(#arr-gold)"/>
+
+  <!-- Cited Answer -->
+  <rect x="1265" y="361" width="115" height="50" rx="6" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+  <text x="1322" y="381" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">Cited Answer</text>
+  <text x="1322" y="398" text-anchor="middle" font-size="10" fill="#555">[source p.N]</text>
+
+  <!-- Surfaces bar -->
+  <rect x="350" y="440" width="580" height="65" rx="6" fill="#f8f8f8" stroke="#999999" stroke-width="1.5"/>
+  <text x="640" y="460" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Surfaces</text>
+  <rect x="368" y="465" width="120" height="28" rx="4" fill="#f5f5f5" stroke="#666666" stroke-width="1"/>
+  <text x="428" y="483" text-anchor="middle" font-size="10" fill="#333">CLI (typer)</text>
+  <rect x="580" y="465" width="120" height="28" rx="4" fill="#f5f5f5" stroke="#666666" stroke-width="1"/>
+  <text x="640" y="483" text-anchor="middle" font-size="10" fill="#333">Streamlit UI</text>
+  <rect x="792" y="465" width="130" height="28" rx="4" fill="#f5f5f5" stroke="#666666" stroke-width="1"/>
+  <text x="857" y="483" text-anchor="middle" font-size="10" fill="#333">FastMCP (Claude Desktop)</text>
+
+  <!-- Legend -->
+  <rect x="30" y="440" width="178" height="90" rx="6" fill="#f8f8f8" stroke="#999999" stroke-width="1.5"/>
+  <text x="119" y="460" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Legend</text>
+  <rect x="42" y="467" width="72" height="20" rx="3" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="78" y="481" text-anchor="middle" font-size="9" fill="#333">Docker (ES)</text>
+  <rect x="124" y="467" width="72" height="20" rx="3" fill="#d5e8d4" stroke="#82b366" stroke-width="1"/>
+  <text x="160" y="481" text-anchor="middle" font-size="9" fill="#333">Local (Chroma)</text>
+  <rect x="42" y="497" width="72" height="20" rx="3" fill="#e1d5e7" stroke="#9673a6" stroke-width="1"/>
+  <text x="78" y="511" text-anchor="middle" font-size="9" fill="#333">Cloud (Ollama)</text>
+  <rect x="124" y="497" width="72" height="20" rx="3" fill="#fff2cc" stroke="#d6b656" stroke-width="1"/>
+  <text x="160" y="511" text-anchor="middle" font-size="9" fill="#333">Output</text>
+</svg>

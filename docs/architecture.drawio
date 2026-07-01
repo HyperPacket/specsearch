@@ -1,0 +1,99 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="SpecSearch Architecture" id="0">
+    <mxGraphModel dx="925" dy="672" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1400" pageHeight="560" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="SpecSearch &amp;mdash; Hybrid RAG Pipeline" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="400" y="20" width="500" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="PDF Specs&#xa;data/raw/" style="shape=mxgraph.floorplan.fileDrawer;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;whiteSpace=wrap;html=1;fontSize=11;" parent="1" vertex="1">
+          <mxGeometry x="30" y="210" width="80" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="20" value="Ingest &amp; Chunk&#xa;ingest.py&#xa;512 tok / 64 overlap&#xa;CSI section-aware" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="160" y="207" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="21" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#666666;" parent="1" source="10" target="20" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="30" value="Dual Index (index.py)" style="swimlane;startSize=30;fillColor=#f8f8f8;strokeColor=#999999;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+          <mxGeometry x="350" y="175" width="300" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="31" value="Elasticsearch BM25&#xa;index: specsearch&#xa;english analyzer&#xa;Docker" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" parent="30" vertex="1">
+          <mxGeometry x="20" y="45" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="32" value="ChromaDB vectors&#xa;BAAI/bge-small&#xa;cosine / HNSW&#xa;local" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" parent="30" vertex="1">
+          <mxGeometry x="160" y="45" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="33" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#666666;" parent="1" source="20" target="30" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="40" value="Parallel Retrieve&#xa;retrieve.py&#xa;ThreadPoolExecutor&#xa;top-500 each" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="710" y="215" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="41" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#6c8ebf;" parent="1" source="31" target="40" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="369" />
+              <mxPoint x="775" y="369" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="42" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#82b366;" parent="1" source="32" target="40" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="50" value="RRF Fusion&#xa;retrieve.py&#xa;k=60&#xa;~1000 candidates" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="895" y="215" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="51" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#666666;" parent="1" source="40" target="50" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="60" value="Cross-Encoder Rerank&#xa;rerank.py&#xa;ms-marco-MiniLM-L-6&#xa;top-6" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="1070" y="215" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="61" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#666666;" parent="1" source="50" target="60" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="70" value="Generate + Cite Check&#xa;generate.py&#xa;Ollama gemma4:31b&#xa;temperature=0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="1070" y="355" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="71" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#9673a6;" parent="1" source="60" target="70" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="80" value="Cited Answer&#xa;[source p.N]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+          <mxGeometry x="1265" y="365" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="81" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#d6b656;" parent="1" source="70" target="80" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="90" value="Surfaces" style="swimlane;startSize=25;fillColor=#f8f8f8;strokeColor=#999999;fontStyle=1;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="350" y="440" width="580" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="91" value="CLI (typer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" parent="90" vertex="1">
+          <mxGeometry x="20" y="27" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="92" value="Streamlit UI (app.py)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" parent="90" vertex="1">
+          <mxGeometry x="240" y="27" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="93" value="FastMCP (Claude Desktop)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" parent="90" vertex="1">
+          <mxGeometry x="460" y="27" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="100" value="Legend" style="swimlane;startSize=22;fillColor=#f8f8f8;strokeColor=#999999;fontStyle=1;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="30" y="440" width="165" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="101" value="Docker (ES)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" parent="100" vertex="1">
+          <mxGeometry x="10" y="27" width="66" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="102" value="Local (Chroma)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" parent="100" vertex="1">
+          <mxGeometry x="88" y="27" width="66" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="103" value="Cloud (Ollama)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" parent="100" vertex="1">
+          <mxGeometry x="10" y="57" width="66" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="104" value="Output" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" parent="100" vertex="1">
+          <mxGeometry x="88" y="57" width="66" height="22" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

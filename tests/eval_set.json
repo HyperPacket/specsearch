@@ -1,0 +1,46 @@
+[
+  {
+    "query": "What is the required compressive strength for structural concrete at 28 days?",
+    "relevant": [
+      {"source_file": "UFGS 03 41 33.pdf", "page": 22},
+      {"source_file": "UFGS 03 41 33.pdf", "page": 24}
+    ]
+  },
+  {
+    "query": "What type of cement is required and what ASTM standard governs it?",
+    "relevant": [{"source_file": "UFGS 03 37 13.pdf", "page": 17}]
+  },
+  {
+    "query": "What is the maximum water-cement ratio for concrete exposed to freezing and thawing?",
+    "relevant": [
+      {"source_file": "UFGS 03 42 13.00 10.pdf", "page": 12},
+      {"source_file": "UFGS 03 37 13.pdf", "page": 18}
+    ]
+  },
+  {
+    "query": "What are the curing duration requirements for cast-in-place concrete?",
+    "relevant": [
+      {"source_file": "UFGS 03 31 29.pdf", "page": 42},
+      {"source_file": "UFGS 03 31 30.pdf", "page": 33}
+    ]
+  },
+  {
+    "query": "What admixtures are permitted and which are prohibited in concrete mixes?",
+    "relevant": [{"source_file": "UFGS 03 37 23.pdf", "page": 31}]
+  },
+  {
+    "query": "What is the maximum slump allowed for concrete placed by pump?",
+    "relevant": [
+      {"source_file": "UFGS 03 30 00.pdf", "page": 74},
+      {"source_file": "UFGS 03 70 00.pdf", "page": 33}
+    ]
+  },
+  {
+    "query": "What are the tolerance requirements for precast structural concrete panels?",
+    "relevant": [{"source_file": "UFGS 03 45 00.pdf", "page": 19}]
+  },
+  {
+    "query": "What reinforcing steel cover is required for concrete exposed to weather?",
+    "relevant": [{"source_file": "UFGS 03 41 33.pdf", "page": 35}]
+  }
+]
