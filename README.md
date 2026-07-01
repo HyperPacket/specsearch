@@ -49,12 +49,20 @@ See [docs/DESIGN.md](docs/DESIGN.md) for architecture rationale and decision log
 
 ## Roadmap
 
+**Retrieval & indexing**
 - PDF table extraction for mix-proportion and strength-class data currently missed by text-only parsing
 - Incremental re-indexing without a full rebuild (document hash tracking)
 - Domain-fine-tuned cross-encoder on construction query/passage pairs
 - CSI code query expansion ("concrete durability" searches all "03 xx xx" sections)
 - Spec diff mode -- surface changed requirements between two spec versions
-- Streaming answers (SSE) in Streamlit and MCP surfaces
+
+**Generation**
+- Engineered system prompt with few-shot citation examples and domain-specific grounding instructions
+- Streaming answers (SSE) for real-time token display
+
+**Surfaces & integrations**
+- Next.js web UI with side-by-side source PDF viewer and highlighted citation passages
+- Expanded MCP surface: `list_specs`, `get_section`, `compare_specs`, and `diff_specs` tools alongside the existing `search_specs`
 - Full Docker Compose stack including Ollama for one-command local setup
 
 ## MCP — Claude Desktop setup

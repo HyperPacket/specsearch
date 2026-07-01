@@ -66,12 +66,20 @@ Retrieval and fusion are fast (55 ms median). Reranking 1,000 candidates on CPU 
 
 ## Roadmap
 
+**Retrieval & indexing**
 - **PDF table extraction** — Parse tables with `pdfplumber` or `camelot` to capture mix-proportion and strength-class data currently invisible to the pipeline.
 - **Incremental indexing** — Track document hashes and add/update individual PDFs without a full rebuild.
 - **Domain-fine-tuned reranker** — Fine-tune a cross-encoder on construction query/passage pairs to close the MS MARCO domain gap shown in the ablation.
 - **CSI code query expansion** — Map natural-language queries to CSI division numbers ("concrete durability" → "03 xx xx") to improve recall on section-number searches.
-- **Spec diff mode** — Given two versions of a specification, surface changed sections and their downstream requirements impact.
-- **Structured output mode** — JSON mode returning citations as structured objects for downstream tooling (compliance checkers, cost estimators).
+- **Spec diff mode** — Given two versions of a specification, surface changed sections and highlight downstream requirements impact.
 - **Multi-collection support** — Separate indexes per project or contract package, with meta-search across collections.
+
+**Generation**
+- **Engineered system prompt** — Few-shot citation examples, domain-specific grounding instructions, and explicit chain-of-thought formatting to improve answer precision and reduce hallucinated section numbers.
+- **Streaming answers** — Server-sent events for real-time token display across all surfaces.
+- **Structured output mode** — JSON mode returning citations as structured objects for downstream tooling (compliance checkers, cost estimators).
+
+**Surfaces & integrations**
+- **Next.js web UI** — A dedicated frontend with side-by-side source PDF viewer, highlighted citation passages, and query history — replacing the Streamlit prototype.
+- **Expanded MCP surface** — Additional tools beyond `search_specs`: `list_specs` (index inventory), `get_section` (fetch a specific CSI section by number), and `diff_specs` (structured change report between spec versions).
 - **Full-stack Docker Compose** — Include Ollama in the compose file for a true one-command local setup.
-- **Streaming answers** — Server-sent events for real-time token display in the Streamlit UI and MCP surface.
