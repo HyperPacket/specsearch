@@ -1,0 +1,13 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+*.pyo
+/data/raw/
+/data/chroma/
+/personal/
+*.egg-info/
+.ruff_cache/
+dist/
+.pytest_cache/
+.DS_Store
